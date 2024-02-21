@@ -29,9 +29,13 @@ void setup() {
 }
 
 void loop() {
-  //polling loop
+  //Slider polling loop
+
+  // Make sure sliders are constantly polled
   pollSlider(&leftSlider);
   pollSlider(&rightSlider);
+
+  // Every 100ms get the value of the pots
   if((millis() - lastmilis) > 100){
     leftAverage = getAveragePotValue(&leftSlider);
     rightAverage = getAveragePotValue(&rightSlider);
