@@ -15,14 +15,16 @@ SLIDE_POT_StatusTypeDef pollSlider(slider_t *slider){
     SLIDE_POT_StatusTypeDef status = SLIDE_POT_OK;
     uint16_t potValue;
 
-    //assert(slider.pin != NULL);
+    //assert(slider.pin != NULL); Some sort of error checking should be used in future.
 
     potValue = analogRead(slider->pin);
-    slider->avgSum -= slider->data[slider->index];
-    slider->avgSum += potValue;
-    slider->data[slider->index] = potValue;
-    slider->index++;
-    slider->index %= RAWindowSize;
+
+    // Moving Average Code
+    slider->avgSum -= slider->data[slider->index]; // Remove oldest value
+    slider->avgSum += potValue; // Add new value 
+    slider->data[slider->index] = potValue; // Set position to new value
+    slider->index++; // Increase index
+    slider->index %= RAWindowSize; // If index larger than window set to 1
 
     error:
         return status;
