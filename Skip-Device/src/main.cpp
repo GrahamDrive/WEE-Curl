@@ -1,41 +1,43 @@
+/**
+ * @file main.cpp
+ * @author your name (you@domain.com)
+ * @author Graham Driver (driverg@myumanitoba.ca)
+ * @brief The main file of the skip device for the WEE Curl Skip Device.
+ * @version 0.1
+ * @date 2024-02-20
+ * 
+ * @copyright Copyright (c) 2024
+ * 
+ */
+
 #include <Arduino.h>
 #include "slidePotentiometersDriver.h"
 
-#define RAWindowSize    50
-
-typedef struct{
-  uint8_t index;
-  uint8_t data[RAWindowSize];
-  uint32_t avgSum;
-  float average;
-}rollingAverage;
-
-rollingAverage potRAValue;
 u_long lastmilis;
-uint8_t potValue;
-
-
+slider_t leftSlider;
+slider_t rightSlider;
+uint16_t leftAverage;
+uint16_t rightAverage;
+uint8_t leftPercentage;
+uint8_t rightPercentage;
 
 void setup() {
-  Serial.begin(9600);
+  Serial.begin(115200);
   lastmilis = millis();
-  potValue = 0;
+  leftSlider.pin = leftSliderPin;
+  rightSlider.pin = rightSliderPin;
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
-
-
-  potValue = getRawADCLeftPotentiometer();
-  potRAValue.avgSum -= potRAValue.data[potRAValue.index];
-  potRAValue.avgSum += potValue;
-  potRAValue.data[potRAValue.index] = potValue;
-  potRAValue.index++;
-  potRAValue.index %= RAWindowSize;
-
-  if(millis() - lastmilis > 5){
-    potRAValue.average = (float)(potRAValue.avgSum/RAWindowSize);
-    Serial.println(potRAValue.average);
+  //polling loop
+  pollSlider(&leftSlider);
+  pollSlider(&rightSlider);
+  if((millis() - lastmilis) > 100){
+    leftAverage = getAveragePotValue(&leftSlider);
+    rightAverage = getAveragePotValue(&rightSlider);
+    leftPercentage = getPercentagePotValue(&leftSlider);
+    rightPercentage = getPercentagePotValue(&rightSlider);
+    Serial.printf("Left Pot Value: %d, Left Pot Percentage: %d, Right Pot Value: %d, Right Pot Percentage: %d", leftAverage, leftPercentage, rightAverage, rightPercentage);
     lastmilis = millis();
   }
   
