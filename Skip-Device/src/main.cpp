@@ -13,9 +13,12 @@
 #include <Arduino.h>
 #include "slidePotentiometersDriver.h"
 
-u_long lastmilis;
+// Slider Structs
 slider_t leftSlider;
 slider_t rightSlider;
+
+// Variables
+u_long lastmilis;
 uint16_t leftAverage;
 uint16_t rightAverage;
 uint8_t leftPercentage;
@@ -29,8 +32,10 @@ void setup() {
 }
 
 void loop() {
-  //Slider polling loop
+  // main loop
 
+
+  // Slider polling Section
   // Make sure sliders are constantly polled
   pollSlider(&leftSlider);
   pollSlider(&rightSlider);
@@ -44,5 +49,5 @@ void loop() {
     Serial.printf("Left Pot Value: %d, Left Pot Percentage: %d, Right Pot Value: %d, Right Pot Percentage: %d", leftAverage, leftPercentage, rightAverage, rightPercentage);
     lastmilis = millis();
   }
-  
+  // End of Slider polling Section
 }
