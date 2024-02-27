@@ -1,18 +1,53 @@
-#include <Arduino.h>
+/**
+ * @file main.cpp
+ * @author your name (you@domain.com)
+ * @author Graham Driver (driverg@myumanitoba.ca)
+ * @brief The main file of the skip device for the WEE Curl Skip Device.
+ * @version 0.1
+ * @date 2024-02-20
+ * 
+ * @copyright Copyright (c) 2024
+ * 
+ */
 
-// put function declarations here:
-int myFunction(int, int);
+#include <Arduino.h>
+#include "slidePotentiometersDriver.h"
+
+// Slider Structs
+slider_t leftSlider;
+slider_t rightSlider;
+
+// Variables
+u_long lastmilis;
+uint16_t leftAverage;
+uint16_t rightAverage;
+uint8_t leftPercentage;
+uint8_t rightPercentage;
 
 void setup() {
-  // put your setup code here, to run once:
-  int result = myFunction(2, 3);
+  Serial.begin(115200);
+  lastmilis = millis();
+  leftSlider.pin = leftSliderPin;
+  rightSlider.pin = rightSliderPin;
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
-}
+  // main loop
 
-// put function definitions here:
-int myFunction(int x, int y) {
-  return x + y;
+
+  // Slider polling Section
+  // Make sure sliders are constantly polled
+  pollSlider(&leftSlider);
+  pollSlider(&rightSlider);
+
+  // Every 100ms get the value of the pots
+  if((millis() - lastmilis) > 100){
+    leftAverage = getAveragePotValue(&leftSlider);
+    rightAverage = getAveragePotValue(&rightSlider);
+    leftPercentage = getPercentagePotValue(&leftSlider);
+    rightPercentage = getPercentagePotValue(&rightSlider);
+    Serial.printf("Left Pot Value: %d, Left Pot Percentage: %d, Right Pot Value: %d, Right Pot Percentage: %d", leftAverage, leftPercentage, rightAverage, rightPercentage);
+    lastmilis = millis();
+  }
+  // End of Slider polling Section
 }
