@@ -21,3 +21,4 @@
 
 void led_init(void);
 void blink_color(uint8_t,uint8_t,uint8_t,int);
+void static_color(uint8_t,uint8_t,uint8_t);

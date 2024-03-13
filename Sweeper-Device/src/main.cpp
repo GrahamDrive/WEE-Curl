@@ -1,5 +1,6 @@
 #include <Arduino.h>
 #include "led_driver.h"
+#include "message_handler.h"
 
 #define __TESTING 1
 // put function declarations here:
