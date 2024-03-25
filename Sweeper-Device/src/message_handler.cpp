@@ -7,7 +7,7 @@ This module is intended to handle any packets coming from esp32 wifi module
 
 //parse packet into message
 int parse_packet(Packet* pkt){
-    int out = *pkt->code;
+    int out = get_code(pkt);
 
     return out;
 }
