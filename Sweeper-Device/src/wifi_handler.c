@@ -14,7 +14,7 @@ void recievePacket(const uint8_t * mac, const uint8_t *incomingData, int len){
     memcpy(&ourPacket, incomingData, sizeof(Packet));
 }
 
-void init(){
+void wifi_init(){
   //gives range 0-4095
   WiFi.mode(WIFI_STA);
 
