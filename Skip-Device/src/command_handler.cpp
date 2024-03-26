@@ -22,7 +22,7 @@ free(prm);
 }
 
 
-uint16_t update_payload(){
+uint16_t update_payload(param* prm){
 uint16_t payload = 0;
 //assign payload based on the assign variables
 
