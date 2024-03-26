@@ -3,17 +3,17 @@
 typedef struct parameter_t param;
 
 //sweeper assignees
-#define ASSIGN_NONE 0b0000
-#define ASSIGN_LEFT 0b0100
-#define ASSIGN_RIGHT 0b1000
+#define ASSIGN_NONE 0b00000000
+#define ASSIGN_LEFT 0b01000000
+#define ASSIGN_RIGHT 0b10000000
 
 //sweeping strength
-#define LIGHT_STR 0b0000
-#define MED_STR 0b0001
-#define HARD_STR 0b0010
-#define STOP 0b0011
+#define LIGHT_STR 00000000
+#define MED_STR 00010000
+#define HARD_STR 00100000
+#define STOP 00110000
 //special offset can be used to implement more commands
-#define SPECIAL 0b1100
+#define SPECIAL 0b11000000
 
 uint16_t update_payload(param*);
 void update_left_val(param*,int);
