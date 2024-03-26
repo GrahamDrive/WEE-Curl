@@ -27,7 +27,7 @@ u_long lastmilis;
 param* prm;//slider parameters
 
 void setup() {
-  Serial.begin(115200);
+  Serial.begin(9600);
   lastmilis = millis();
   leftSlider.pin = leftSliderPin;
   rightSlider.pin = rightSliderPin;
@@ -41,17 +41,17 @@ void loop() {
 
   // Slider polling Section
   // Make sure sliders are constantly polled
-  pollSlider(&leftSlider);
-  pollSlider(&rightSlider);
+  //pollSlider(&leftSlider);
+  //pollSlider(&rightSlider);
 
   // Every 100ms get the value of the pots
   if((millis() - lastmilis) > 100){
 		pollSlider(&leftSlider);
 		pollSlider(&rightSlider);
 		//poll button and switches
-		poll_switch();//left slide switch
-		poll_switch();//right slide switch
-		poll_button();//poll hurry hard button
+		//poll_switch();//left slide switch
+		//poll_switch();//right slide switch
+		//poll_button();//poll hurry hard button
 		
 		//if(!hurry_hard)
 		update_left_val(getPercentagePotValue(prm,&leftSlider));
