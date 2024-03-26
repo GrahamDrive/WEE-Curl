@@ -42,7 +42,7 @@ else if(prm->left_val <= 100) assigned |= 0b0000HARD_STR;
 payload |= (ASSIGN_LEFT|(assigned&0b11110000))>>(prm->left_assign*4);
 payload |= (ASSIGN_RIGHT|((assigned<<4)&0b11110000))>>(prm->right_assign*4);
 
-//Serial.println("Payload is %b",payload);
+Serial.println(payload,BIN);
 
 return payload;
 }
