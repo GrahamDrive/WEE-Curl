@@ -13,6 +13,7 @@
 #include <Arduino.h>
 #include "slidePotentiometersDriver.h"
 #include "command_handler.h"
+#include "button_Driver.h"
 // Slider Structs
 slider_t leftSlider;
 slider_t rightSlider;
