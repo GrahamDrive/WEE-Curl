@@ -15,6 +15,7 @@
 #include "command_handler.h"
 #include "button_Driver.h"
 // Slider Structs
+
 slider_t leftSlider;
 slider_t rightSlider;
 
@@ -24,7 +25,7 @@ u_long lastmilis;
 //uint16_t rightAverage;
 //uint8_t leftPercentage;
 //uint8_t rightPercentage;
-param* prm;//slider parameters
+struct_cmd_hndlr prm;//slider parameters
 
 void setup() {
   Serial.begin(9600);
@@ -32,7 +33,7 @@ void setup() {
   leftSlider.pin = leftSliderPin;
   rightSlider.pin = rightSliderPin;
 
-	prm = construct();
+	construct(&prm);
 }
 
 void loop() {
@@ -54,15 +55,15 @@ void loop() {
 		//poll_button();//poll hurry hard button
 		
 		//if(!hurry_hard)
-		update_left_val(getPercentagePotValue(prm,&leftSlider));
-		update_right_val(getPercentagePotValue(prm,&rightSlider));
+		update_left_val(&prm,getPercentagePotValue(&leftSlider));
+		update_right_val(&prm,getPercentagePotValue(&rightSlider));
 		//else
 		//update_left_val(100);
 		//update_right_val(100);
 		//update assign switches...
 		
 
-		update_payload(prm);
+		update_payload(&prm);
 
 		//send out packet
 

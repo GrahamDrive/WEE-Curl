@@ -1,13 +1,14 @@
 #include <stdbool.h>
 #include "button_Driver.h"
+#include <Arduino.h>
 
 #define DEBOUNCE  250
 
 #define PIN_BUTT  25
 
-static unsigned long cur_time = 0;
-static bool isOn = false;
-static unsigned long time_butt = 0;
+unsigned long cur_time = 0;
+bool isOn = false;
+unsigned long time_butt = 0;
 
 void init_button() {
   pinMode(PIN_BUTT,INPUT_PULLDOWN);
