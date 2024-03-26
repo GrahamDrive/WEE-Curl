@@ -12,23 +12,26 @@
 
 #include <Arduino.h>
 #include "slidePotentiometersDriver.h"
-
+#include "command_handler.h"
 // Slider Structs
 slider_t leftSlider;
 slider_t rightSlider;
 
 // Variables
 u_long lastmilis;
-uint16_t leftAverage;
-uint16_t rightAverage;
-uint8_t leftPercentage;
-uint8_t rightPercentage;
+//uint16_t leftAverage;
+//uint16_t rightAverage;
+//uint8_t leftPercentage;
+//uint8_t rightPercentage;
+param prm;//slider parameters
 
 void setup() {
   Serial.begin(115200);
   lastmilis = millis();
   leftSlider.pin = leftSliderPin;
   rightSlider.pin = rightSliderPin;
+
+	prm = construct();
 }
 
 void loop() {
