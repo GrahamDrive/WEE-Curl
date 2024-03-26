@@ -53,8 +53,8 @@ void loop() {
 		poll_button();//poll hurry hard button
 		
 		//if(!hurry_hard)
-		update_left_val(getPercentagePotValue(&leftSlider));
-		update_right_val(getPercentagePotValue(&rightSlider));
+		update_left_val(getPercentagePotValue(prm,&leftSlider));
+		update_right_val(getPercentagePotValue(prm,&rightSlider));
 		//else
 		//update_left_val(100);
 		//update_right_val(100);
