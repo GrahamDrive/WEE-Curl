@@ -16,10 +16,10 @@ typedef struct parameter_t param;
 #define SPECIAL 0b11
 
 uint16_t update_payload(param*);
-void update_left_val(int);
-void update_right_val(int);
-void update_left_assign(int);
-viod update_right_assign(int);
+void update_left_val(param*,int);
+void update_right_val(param*,int);
+void update_left_assign(param*,int);
+viod update_right_assign(param*,int);
 
 param* construct(void);
 void destroy(param*);
