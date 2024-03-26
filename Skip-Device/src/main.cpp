@@ -45,11 +45,21 @@ void loop() {
 
   // Every 100ms get the value of the pots
   if((millis() - lastmilis) > 100){
-    leftAverage = getAveragePotValue(&leftSlider);
-    rightAverage = getAveragePotValue(&rightSlider);
-    leftPercentage = getPercentagePotValue(&leftSlider);
-    rightPercentage = getPercentagePotValue(&rightSlider);
-    Serial.printf("Left Pot Value: %d, Left Pot Percentage: %d, Right Pot Value: %d, Right Pot Percentage: %d", leftAverage, leftPercentage, rightAverage, rightPercentage);
+		pollSlider(&leftSlider);
+		pollSlider(&rightSlider);
+		//poll slide switches...
+
+		update_left_val(getPercentagePotValue(&leftSlider));
+		update_right_val(getPercetagePotValue&rightSlider));
+		//update assign switches...
+		
+
+		update_payload(&prm);
+    //leftAverage = getAveragePotValue(&leftSlider);
+    //rightAverage = getAveragePotValue(&rightSlider);
+    //leftPercentage = getPercentagePotValue(&leftSlider);
+    //rightPercentage = getPercentagePotValue(&rightSlider);
+    //Serial.printf("Left Pot Value: %d, Left Pot Percentage: %d, Right Pot Value: %d, Right Pot Percentage: %d", leftAverage, leftPercentage, rightAverage, rightPercentage);
     lastmilis = millis();
   }
   // End of Slider polling Section
