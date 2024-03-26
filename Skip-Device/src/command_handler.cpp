@@ -11,9 +11,10 @@ param* construct(){
 	param* parameters = (param*)malloc(sizeof(param));
 	parameters->left_val = 0;
 	paramaters->right_val = 0;
-	parameters->left_assign = 0;
-	parameters->right_assign =0;
-
+	//parameters->left_assign = 0;
+	//parameters->right_assign =0;
+	parameters->left_assign = 1;
+	parameters->right_assign = 2;
 return parameters;
 }
 
