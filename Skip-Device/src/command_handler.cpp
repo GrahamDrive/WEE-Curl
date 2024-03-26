@@ -7,6 +7,21 @@ struct parameter_t{
 	int right_assign;
 };
 
+param* construct(){
+	param* parameters = (param*)malloc(sizeof(param));
+	parameters->left_val = 0;
+	paramaters->right_val = 0;
+	parameters->left_assign = 0;
+	parameters->right_assign =0;
+
+return parameters;
+}
+
+void destroy(param* prm){
+free(prm);
+}
+
+
 uint16_t update_payload(){
 uint16_t payload = 0;
 //assign payload based on the assign variables
