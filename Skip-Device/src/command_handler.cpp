@@ -24,9 +24,24 @@ free(prm);
 
 uint16_t update_payload(param* prm){
 uint16_t payload = 0;
+uint8_t assigned = 0;
+
+if(prm->left_val < 10)	assigned |= 0bSTOP0000;
+else if(prm->left_val < 30) assigned |= 0bLIGHT_STR0000;
+else if(prm->left_val < 75) assigned |= 0bMED_STR0000;
+else if(prm->left_val <= 100) assigned |= 0bHARD_STR0000;
+
+if(prm->right_val < 10) assigned |= 0b0000STOP;
+else if(prm->right_val < 30) assigned |= 0b0000LIGHT_STR;
+else if(prm->left_val < 75) assigned |= 0b0000MED_STR;
+else if(prm->left_val <= 100) assigned |= 0b0000HARD_STR;
+
 //assign payload based on the assign variables
 
-//assign left/right values based on the assign variables
+payload |= (ASSIGN_LEFT|(assigned&0b11110000))>>(prm->left_assign*4);
+payload |= (ASSIGN_RIGHT|((assigned<<4)&0b11110000))>>(prm->right_assign*4);
+
+//Serial.println("Payload is %b",payload);
 
 return payload;
 }
