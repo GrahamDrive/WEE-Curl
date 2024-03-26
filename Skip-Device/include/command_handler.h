@@ -15,7 +15,7 @@ typedef struct parameter_t param;
 //special offset can be used to implement more commands
 #define SPECIAL 0b11
 
-uint16_t update_payload(void);
+uint16_t update_payload(param*);
 void update_left_val(int);
 void update_right_val(int);
 void update_left_assign(int);
