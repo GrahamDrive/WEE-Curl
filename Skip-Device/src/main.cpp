@@ -23,7 +23,7 @@ u_long lastmilis;
 //uint16_t rightAverage;
 //uint8_t leftPercentage;
 //uint8_t rightPercentage;
-param prm;//slider parameters
+param* prm;//slider parameters
 
 void setup() {
   Serial.begin(115200);
@@ -47,14 +47,29 @@ void loop() {
   if((millis() - lastmilis) > 100){
 		pollSlider(&leftSlider);
 		pollSlider(&rightSlider);
-		//poll slide switches...
-
+		//poll button and switches
+		poll_switch();//left slide switch
+		poll_switch();//right slide switch
+		poll_button();//poll hurry hard button
+		
+		//if(!hurry_hard)
 		update_left_val(getPercentagePotValue(&leftSlider));
-		update_right_val(getPercetagePotValue&rightSlider));
+		update_right_val(getPercentagePotValue(&rightSlider));
+		//else
+		//update_left_val(100);
+		//update_right_val(100);
 		//update assign switches...
 		
 
-		update_payload(&prm);
+		update_payload(prm);
+
+		//send out packet
+
+
+		//sleep
+
+
+
     //leftAverage = getAveragePotValue(&leftSlider);
     //rightAverage = getAveragePotValue(&rightSlider);
     //leftPercentage = getPercentagePotValue(&leftSlider);
