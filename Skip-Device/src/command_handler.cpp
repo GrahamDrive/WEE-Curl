@@ -31,18 +31,18 @@ uint16_t payload = 0;
 return payload;
 }
 
-void update_left_val(int new_val){
-param->left_val = new_val;
+void update_left_val(param* prm,int new_val){
+prm->left_val = new_val;
 }
 
-void update_right_val(int new_val){
-param->right_val = new_val;
+void update_right_val(param* prm,int new_val){
+prm->right_val = new_val;
 }
 
-void update_left_assign(int new_val){
-param->left_assign = new_val;
+void update_left_assign(param* prm,int new_val){
+prm->left_assign = new_val;
 }
 
-void update_right_assign(int new_val){
-param->right_assign = new_val;
+void update_right_assign(param* prm,int new_val){
+prm->right_assign = new_val;
 }
