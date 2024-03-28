@@ -12,6 +12,7 @@
 
 #include <Arduino.h>
 #include "slidePotentiometersDriver.h"
+#include "pinouts.h"
 
 // Slider Structs
 slider_t leftSlider;
