@@ -12,8 +12,6 @@
 #include <stdlib.h>
 
 #define RAWindowSize    100
-#define leftSliderPin   A0
-#define rightSliderPin  A13
 
 typedef struct{
     uint8_t index = 0;            // Index of the moving average
