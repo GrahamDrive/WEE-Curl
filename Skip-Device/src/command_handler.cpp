@@ -19,7 +19,7 @@ free(prm);
 
 uint16_t update_payload(struct_cmd_hndlr* prm){
 uint16_t payload = 0;
-uint8_t assigned = 0b010010000;
+uint16_t assigned = 0b01001000;
 
 if(prm->left_val < 10)	assigned |= STOP;
 else if(prm->left_val < 30) assigned |= LIGHT_STR;
