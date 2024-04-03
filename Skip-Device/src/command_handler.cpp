@@ -19,23 +19,62 @@ free(prm);
 
 uint16_t update_payload(struct_cmd_hndlr* prm){
 uint16_t payload = 0;
-uint16_t assigned = 0b01001000;
+uint16_t assigned = 0;
 
-if(prm->left_val < 10)	assigned |= STOP;
-else if(prm->left_val < 30) assigned |= LIGHT_STR;
-else if(prm->left_val < 75) assigned |= MED_STR;
-else if(prm->left_val <= 100) assigned |= HARD_STR;
+if(prm->left_assign > prm->right_assign){
+	assigned = ASSIGN_LEFT;
+	if (prm->left_val < 10)
+		assigned |= STOP;
+	else if (prm->left_val < 30)
+		assigned |= LIGHT_STR;
+	else if (prm->left_val < 75)
+		assigned |= MED_STR;
+	else if (prm->left_val <= 100)
+		assigned |= HARD_STR;	
+	payload |= (assigned>>(4*prm->left_assign));
 
-if(prm->right_val < 10) assigned |= STOP >> 4;
-else if(prm->right_val < 30) assigned |= LIGHT_STR >> 4;
-else if(prm->left_val < 75) assigned |= MED_STR >> 4;
-else if(prm->left_val <= 100) assigned |= HARD_STR >> 4;
-Serial.println(STOP);
-Serial.println(assigned);
+	assigned = ASSIGN_RIGHT;
+	if (prm->right_val < 10)
+		assigned |= STOP >> 4;
+	else if (prm->right_val < 30)
+		assigned |= LIGHT_STR >> 4;
+	else if (prm->left_val < 75)
+		assigned |= MED_STR >> 4;
+	else if (prm->left_val <= 100)
+		assigned |= HARD_STR >> 4;
+	payload |= (assigned>>(4*prm->right_assign));
+
+}
+else{
+
+	assigned = ASSIGN_RIGHT;
+	if (prm->right_val < 10)
+		assigned |= STOP >> 4;
+	else if (prm->right_val < 30)
+		assigned |= LIGHT_STR >> 4;
+	else if (prm->left_val < 75)
+		assigned |= MED_STR >> 4;
+	else if (prm->left_val <= 100)
+		assigned |= HARD_STR >> 4;
+	payload |= (assigned >> (4 * prm->right_assign));
+
+	assigned = ASSIGN_LEFT;
+	if (prm->left_val < 10)
+		assigned |= STOP;
+	else if (prm->left_val < 30)
+		assigned |= LIGHT_STR;
+	else if (prm->left_val < 75)
+		assigned |= MED_STR;
+	else if (prm->left_val <= 100)
+		assigned |= HARD_STR;
+	payload |= (assigned >> (4 * prm->left_assign));
+}
+
+
 //assign payload based on the assign variables
 
-payload |= ((uint16_t)(assigned&0b11110000))>>(prm->left_assign*4);
-payload |= ((uint16_t)((assigned&0b00001111)<<4))>>(prm->right_assign*4);
+// payload |= ((uint16_t)(assigned&0b11110000))>>(prm->left_assign*4);
+// payload |= ((uint16_t)((assigned&0b00001111)<<4))>>(prm->right_assign*4);
 
 Serial.println(payload);
 
