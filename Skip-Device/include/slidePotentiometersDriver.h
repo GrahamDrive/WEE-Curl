@@ -10,6 +10,7 @@
  */
 #include <Arduino.h>
 #include <stdlib.h>
+#include "pinouts.h"
 
 #define RAWindowSize    100
 

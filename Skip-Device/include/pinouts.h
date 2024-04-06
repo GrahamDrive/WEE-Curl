@@ -9,9 +9,11 @@
  * 
  */
 
+#include <Arduino.h>
+
 // Sliders
-#define leftSliderPin   A0
-#define rightSliderPin  A13
+#define leftSliderPin   A3
+#define rightSliderPin  A0
 
 // LEDs
 #define indicatorLED    A14
