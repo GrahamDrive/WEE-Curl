@@ -1,8 +1,6 @@
 #include "wifi_handler.h"
 
 
-uint8_t broadcastAddress[] = {0x0C, 0xB8, 0x15, 0x77, 0xD4, 0x54};
-
 void send_pkt(Packet outBoundPacket){
 
     
@@ -19,12 +17,14 @@ void send_pkt(Packet outBoundPacket){
     }
 }
 
+
 void OnDataRecv(const uint8_t* mac, const uint8_t *incomingData, int len){
   Serial.print("Packet Received\n");
   Serial.print("Data is:");
   Serial.println(*incomingData);
 
 }
+
 
 void OnDataSent(const uint8_t* mac_addr, esp_now_send_status_t status){
   Serial.print("Delivered Successfully\n");
@@ -46,7 +46,7 @@ void wifi_init(){
     Serial.println(WiFi.macAddress());
     
     //add stuff to peer list
-    memcpy(peerInfo.peer_addr, broadcastAddress, 6);
+    memcpy(peerInfo.peer_addr, sweeperOneMac, 6);
     peerInfo.channel = 0;
     peerInfo.encrypt = false;
 
