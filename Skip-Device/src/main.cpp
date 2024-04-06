@@ -34,11 +34,11 @@ void setup() {
   wifi_init();
 
   // Initialize packet
-  packet.sweeperOnLeft = 0;   // This should be changed to where switch is at
-  packet.sweeperOnRight = 1;  // This should be changed to where switch is at
+  packet.sweeperOnLeft = SWEEPER_ONE;   // This should be changed to where switch is at
+  packet.sweeperOnRight = SWEEPER_TWO;  // This should be changed to where switch is at
   packet.leftSweeperIntensity = 0;
   packet.rightSweeperIntensity = 0;
-  packet.hurryHard = 0;
+  packet.hurryHard = false;
 }
 
 void loop() {
