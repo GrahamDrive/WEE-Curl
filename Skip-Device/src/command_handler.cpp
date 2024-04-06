@@ -4,7 +4,7 @@
 
 void construct(struct_cmd_hndlr* parameters){
 	
-	parameters->left_assign = 0;
+	parameters->left_val = 0;
 	parameters->right_val = 0;
 	//parameters->left_assign = 0;
 	//parameters->right_assign =0;
@@ -95,4 +95,17 @@ prm->left_assign = new_val;
 
 void update_right_assign(struct_cmd_hndlr* prm,uint8_t new_val){
 prm->right_assign = new_val;
+}
+
+int get_left_val(struct_cmd_hndlr* prm){
+	return prm->left_val;
+}
+int get_right_val(struct_cmd_hndlr* prm){
+	return prm->right_val;
+}
+int get_left_assign(struct_cmd_hndlr* prm){
+	return prm->left_assign;
+}
+int get_right_assign(struct_cmd_hndlr* prm){
+	return prm->right_assign;
 }

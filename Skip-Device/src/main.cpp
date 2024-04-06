@@ -14,6 +14,7 @@
 #include "slidePotentiometersDriver.h"
 #include "command_handler.h"
 #include "button_Driver.h"
+#include "wifi_handler.h"
 // Slider Structs
 
 slider_t leftSlider;
@@ -34,6 +35,8 @@ void setup() {
   rightSlider.pin = rightSliderPin;
 
 	construct(&prm);
+
+  wifi_init();
 }
 
 void loop() {
@@ -47,8 +50,8 @@ void loop() {
 
   // Every 100ms get the value of the pots
   if((millis() - lastmilis) > 100){
-		pollSlider(&leftSlider);
-		pollSlider(&rightSlider);
+		//pollSlider(&leftSlider);
+		//pollSlider(&rightSlider);
 		//poll button and switches
 		//poll_switch();//left slide switch
 		//poll_switch();//right slide switch
@@ -63,14 +66,14 @@ void loop() {
 		//update assign switches...
 		
 
-		update_payload(&prm);
+		//update_payload(&prm);
 
 		//send out packet
 
 
 		//sleep
-
-
+    
+    send_pkt(get_left_val(&prm),get_right_val(&prm),get_left_assign(&prm),get_right_assign(&prm));
 
     //leftAverage = getAveragePotValue(&leftSlider);
     //rightAverage = getAveragePotValue(&rightSlider);

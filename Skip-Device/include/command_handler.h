@@ -26,5 +26,10 @@ void update_right_val(struct_cmd_hndlr*,uint8_t);
 void update_left_assign(struct_cmd_hndlr*,uint8_t);
 void update_right_assign(struct_cmd_hndlr*,uint8_t);
 
+int get_left_val(struct_cmd_hndlr* prm);
+int get_right_val(struct_cmd_hndlr* prm);
+int get_left_assign(struct_cmd_hndlr* prm);
+int get_right_assign(struct_cmd_hndlr* prm);
+
 void construct(struct_cmd_hndlr*);
 void destroy(struct_cmd_hndlr*);

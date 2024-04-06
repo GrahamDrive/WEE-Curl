@@ -4,7 +4,7 @@
 
 #define DEBOUNCE  250
 
-#define PIN_BUTT  25
+#define PIN_BUTT  14
 
 unsigned long cur_time = 0;
 bool isOn = false;
