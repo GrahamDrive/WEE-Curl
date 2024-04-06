@@ -49,6 +49,7 @@ SLIDE_POT_StatusTypeDef pollSlider(slider_t *slider);
  */
 uint16_t getAveragePotValue(slider_t *slider);
 
+
 /**
  * @brief Get the Percentage Pot Value
  * 
@@ -56,3 +57,12 @@ uint16_t getAveragePotValue(slider_t *slider);
  * @return uint8_t
  */
 uint8_t getPercentagePotValue(slider_t *slider);
+
+
+/**
+ * @brief Get the Sweeper Level Value
+ * 
+ * @param slider A slider struct pointer.
+ * @return uint8_t 
+ */
+uint8_t getSweeperLevel(slider_t *slider);
