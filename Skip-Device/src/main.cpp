@@ -12,7 +12,6 @@
 
 #include <Arduino.h>
 #include "slidePotentiometersDriver.h"
-#include "command_handler.h"
 #include "button_Driver.h"
 #include "wifi_handler.h"
 #include "pinouts.h"
@@ -21,14 +20,10 @@
 
 slider_t leftSlider;
 slider_t rightSlider;
+Packet packet = {};
 
 // Variables
 u_long lastmilis;
-//uint16_t leftAverage;
-//uint16_t rightAverage;
-//uint8_t leftPercentage;
-//uint8_t rightPercentage;
-struct_cmd_hndlr prm;//slider parameters
 
 void setup() {
   Serial.begin(9600);
@@ -36,52 +31,32 @@ void setup() {
   leftSlider.pin = leftSliderPin;
   rightSlider.pin = rightSliderPin;
 
-	construct(&prm);
-
   wifi_init();
+
+  // Initialize packet
+  packet.sweeperOnLeft = 0;   // This should be changed to where switch is at
+  packet.sweeperOnRight = 1;  // This should be changed to where switch is at
+  packet.leftSweeperIntensity = 0;
+  packet.rightSweeperIntensity = 0;
+  packet.hurryHard = 0;
 }
 
 void loop() {
   // main loop
 
-
   // Slider polling Section
   // Make sure sliders are constantly polled
-  //pollSlider(&leftSlider);
-  //pollSlider(&rightSlider);
+  pollSlider(&leftSlider);
+  pollSlider(&rightSlider);
 
-  // Every 100ms get the value of the pots
+  // Every 100ms send packet
   if((millis() - lastmilis) > 100){
-		//pollSlider(&leftSlider);
-		//pollSlider(&rightSlider);
-		//poll button and switches
-		//poll_switch();//left slide switch
-		//poll_switch();//right slide switch
-		//poll_button();//poll hurry hard button
-		
-		//if(!hurry_hard)
-		update_left_val(&prm,getPercentagePotValue(&leftSlider));
-		update_right_val(&prm,getPercentagePotValue(&rightSlider));
-		//else
-		//update_left_val(100);
-		//update_right_val(100);
-		//update assign switches...
-		
+    packet.leftSweeperIntensity = getSweeperLevel(&leftSlider);
+    packet.rightSweeperIntensity = getSweeperLevel(&rightSlider);
 
-		//update_payload(&prm);
-
-		//send out packet
-
-
-		//sleep
+    //sleep
+    send_pkt(packet);
     
-    send_pkt(get_left_val(&prm),get_right_val(&prm),get_left_assign(&prm),get_right_assign(&prm));
-
-    //leftAverage = getAveragePotValue(&leftSlider);
-    //rightAverage = getAveragePotValue(&rightSlider);
-    //leftPercentage = getPercentagePotValue(&leftSlider);
-    //rightPercentage = getPercentagePotValue(&rightSlider);
-    //Serial.printf("Left Pot Value: %d, Left Pot Percentage: %d, Right Pot Value: %d, Right Pot Percentage: %d", leftAverage, leftPercentage, rightAverage, rightPercentage);
     lastmilis = millis();
   }
   // End of Slider polling Section
