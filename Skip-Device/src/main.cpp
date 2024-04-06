@@ -15,6 +15,8 @@
 #include "command_handler.h"
 #include "button_Driver.h"
 #include "wifi_handler.h"
+#include "pinouts.h"
+
 // Slider Structs
 
 slider_t leftSlider;
