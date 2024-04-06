@@ -1,21 +1,12 @@
 #include "wifi_handler.h"
 
-typedef struct packet_t{
-    int left_val;
-    int right_val;
-    int left_assign;
-    int right_assign;
-}Packet;
 
-void send_pkt(int left_v,int right_v, int left_a, int right_a){
-    Packet pkt;
+uint8_t broadcastAddress[] = {0x0C, 0xB8, 0x15, 0x77, 0xD4, 0x54};
 
-    pkt.left_val = left_v;
-    pkt.right_val = right_v;
-    pkt.left_assign = left_a;
-    pkt.right_assign = right_a;
+void send_pkt(Packet outBoundPacket){
 
-    esp_err_t result = esp_now_send(0, (const uint8_t *)"A", strlen("A"));
+    
+    esp_err_t result = esp_now_send(NULL, (uint8_t *) &outBoundPacket, sizeof(outBoundPacket));
 
     if (result == ESP_OK)
     {
@@ -23,7 +14,8 @@ void send_pkt(int left_v,int right_v, int left_a, int right_a){
     }
     else
     {
-        Serial.println("Err IDK");
+        Serial.print("Error Code: ");
+        Serial.println(result, HEX);
     }
 }
 
@@ -35,26 +27,37 @@ void OnDataRecv(const uint8_t* mac, const uint8_t *incomingData, int len){
 }
 
 void OnDataSent(const uint8_t* mac_addr, esp_now_send_status_t status){
-  Serial.print("Last Packet Sent Stat: \n");
-  Serial.println(status == ESP_NOW_SEND_SUCCESS);
+  Serial.print("Delivered Successfully\n");
 }
 
 
 void wifi_init(){
+    esp_now_peer_info_t peerInfo = {};
+    
     WiFi.mode(WIFI_STA);
-    Serial.print("Init ESP-NOW");
+    Serial.println("Init ESP-NOW");
+
     while(esp_now_init() != ESP_OK){
         Serial.println("Error intialzing");
         return;
     }    
+
     Serial.print("MAC Add:");
-    Serial.print(WiFi.macAddress());
+    Serial.println(WiFi.macAddress());
+    
+    //add stuff to peer list
+    memcpy(peerInfo.peer_addr, broadcastAddress, 6);
+    peerInfo.channel = 0;
+    peerInfo.encrypt = false;
+
+    if(esp_now_add_peer(&peerInfo) != ESP_OK){
+        Serial.println("Failed to add peer");
+    }
+    else{
+        Serial.println("Added Peer");
+    }
 
     esp_now_register_recv_cb(OnDataRecv);
     esp_now_register_send_cb(OnDataSent);
     
-    //add stuff to peer list
-    uint8_t broadAddress[] = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF};
-    esp_now_peer_info_t peerInfo = {};
-    memcpy(&peerInfo.peer_addr, broadAddress, 6);
 }
