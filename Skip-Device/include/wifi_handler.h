@@ -16,10 +16,6 @@ typedef struct packet_t{
     bool hurryHard;
 }Packet;
 
-uint8_t sweeperOneMac[] = {0x0C, 0xB8, 0x15, 0x77, 0xD4, 0x54};
-uint8_t sweeperTwoMac[] = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF};     // Change to actual MACs
-uint8_t sweeperThreeMac[] = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF};   // Change to actual MACs
-
 
 /**
  * @brief Initialize the WIFI communication
