@@ -12,7 +12,7 @@
 
 #include <Arduino.h>
 #include "slidePotentiometersDriver.h"
-#include "button_Driver.h"
+#include "buttonDriver.h"
 #include "wifi_handler.h"
 #include "pinouts.h"
 
@@ -21,6 +21,7 @@
 slider_t leftSlider;
 slider_t rightSlider;
 Packet packet = {};
+buttonStruct hurryHardButton = {};
 
 // Variables
 u_long lastmilis;
@@ -28,8 +29,14 @@ u_long lastmilis;
 void setup() {
   Serial.begin(9600);
   lastmilis = millis();
+
+  // Set pins
   leftSlider.pin = leftSliderPin;
   rightSlider.pin = rightSliderPin;
+
+  hurryHardButton.pin = hurryHardButtonPin;
+  hurryHardButton.pullUpOrDown = INPUT_PULLUP;
+  init_button(hurryHardButton);
 
   wifi_init();
 
@@ -48,12 +55,13 @@ void loop() {
   // Make sure sliders are constantly polled
   pollSlider(&leftSlider);
   pollSlider(&rightSlider);
-
+  pollButton(&hurryHardButton);
+  
   // Every 100ms send packet
   if((millis() - lastmilis) > 100){
     packet.leftSweeperIntensity = getSweeperLevel(&leftSlider);
     packet.rightSweeperIntensity = getSweeperLevel(&rightSlider);
-
+    packet.hurryHard = hurryHardButton.buttonState;
     //sleep
     send_pkt(packet);
     
