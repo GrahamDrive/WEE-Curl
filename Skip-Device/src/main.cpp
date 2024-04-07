@@ -12,42 +12,59 @@
 
 #include <Arduino.h>
 #include "slidePotentiometersDriver.h"
+#include "buttonDriver.h"
+#include "wifi_handler.h"
 #include "pinouts.h"
 
 // Slider Structs
+
 slider_t leftSlider;
 slider_t rightSlider;
+Packet packet = {};
+buttonStruct hurryHardButton = {};
 
 // Variables
 u_long lastmilis;
-uint16_t leftAverage;
-uint16_t rightAverage;
-uint8_t leftPercentage;
-uint8_t rightPercentage;
 
 void setup() {
-  Serial.begin(115200);
+  Serial.begin(9600);
   lastmilis = millis();
+
+  // Set pins
   leftSlider.pin = leftSliderPin;
   rightSlider.pin = rightSliderPin;
+
+  hurryHardButton.pin = hurryHardButtonPin;
+  hurryHardButton.pullUpOrDown = INPUT_PULLUP;
+  init_button(hurryHardButton);
+
+  wifi_init();
+
+  // Initialize packet
+  packet.sweeperOnLeft = SWEEPER_ONE;   // This should be changed to where switch is at
+  packet.sweeperOnRight = SWEEPER_TWO;  // This should be changed to where switch is at
+  packet.leftSweeperIntensity = 0;
+  packet.rightSweeperIntensity = 0;
+  packet.hurryHard = false;
 }
 
 void loop() {
   // main loop
 
-
   // Slider polling Section
   // Make sure sliders are constantly polled
   pollSlider(&leftSlider);
   pollSlider(&rightSlider);
-
-  // Every 100ms get the value of the pots
+  pollButton(&hurryHardButton);
+  
+  // Every 100ms send packet
   if((millis() - lastmilis) > 100){
-    leftAverage = getAveragePotValue(&leftSlider);
-    rightAverage = getAveragePotValue(&rightSlider);
-    leftPercentage = getPercentagePotValue(&leftSlider);
-    rightPercentage = getPercentagePotValue(&rightSlider);
-    Serial.printf("Left Pot Value: %d, Left Pot Percentage: %d, Right Pot Value: %d, Right Pot Percentage: %d", leftAverage, leftPercentage, rightAverage, rightPercentage);
+    packet.leftSweeperIntensity = getSweeperLevel(&leftSlider);
+    packet.rightSweeperIntensity = getSweeperLevel(&rightSlider);
+    packet.hurryHard = hurryHardButton.buttonState;
+    //sleep
+    send_pkt(packet);
+    
     lastmilis = millis();
   }
   // End of Slider polling Section
