@@ -43,31 +43,31 @@ uint8_t getSweeperLevel(slider_t *slider){
     uint8_t percentage = getPercentagePotValue(slider);
     uint8_t sweepLevel = 0;
 
-    if(percentage <= 3){
+    if(percentage <= 4){
         sweepLevel = 0;
     }
-    else if(percentage > 3 & percentage <= 12){
+    else if(percentage > 4 & percentage <= 16){
         sweepLevel = 1;
     }
-    else if(percentage > 12 & percentage <= 24){
+    else if(percentage > 16 & percentage <= 28){
         sweepLevel = 2;
     }
-    else if(percentage > 24 & percentage <= 36){
+    else if(percentage > 28 & percentage <= 40){
         sweepLevel = 3;
     }
-    else if(percentage > 36 & percentage <= 48){
+    else if(percentage > 40 & percentage <= 52){
         sweepLevel = 4;
     }
-    else if(percentage > 48 & percentage <= 60){
+    else if(percentage > 52 & percentage <= 64){
         sweepLevel = 5;
     }
-    else if(percentage > 60 & percentage <= 72){
+    else if(percentage > 64 & percentage <= 76){
         sweepLevel = 6;
     }
-    else if(percentage > 72 & percentage <= 84){
+    else if(percentage > 76 & percentage <= 88){
         sweepLevel = 7;
     }
-    else if(percentage > 84){
+    else if(percentage > 88){
         sweepLevel = 8;
     }
 
