@@ -16,16 +16,16 @@
 #define rightSliderPin  A0
 
 // LEDs
-#define indicatorLED    A14
+#define indicatorLEDPin    A14
 
 // Switches
-#define rightSwitchPinOne   A15
-#define rightSwitchPinTwo   A16
-#define rightSwitchPinThree A17
-#define leftSwitchPinOne    A28
-#define leftSwitchPinTwo    A29
-#define leftSwitchPinThree  A27
+#define rightSwitchPinOnePin   A15
+#define rightSwitchPinTwoPin   A16
+#define rightSwitchPinThreePin A17
+#define leftSwitchPinOnePin    A28
+#define leftSwitchPinTwoPin    A29
+#define leftSwitchPinThreePin  A27
 
 // Buttons
-#define hurryHardButton     A26
+#define hurryHardButtonPin     A16
  
