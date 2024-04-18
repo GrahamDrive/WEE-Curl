@@ -29,5 +29,3 @@ void loop() {
     read_code(get_code(0),get_code(1),get_code(2),get_code(3),get_but());
   }
 }
-
-// put function definitions here:
