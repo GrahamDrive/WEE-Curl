@@ -7,15 +7,20 @@
 
 
 //predefined colors
-#define RED 25,0,0
-#define BLUE 0,0,25
-#define GREEN 0,25,0
-#define ORANGE 25,13,0
-#define YELLOW 25,25,0
-#define TEAL 0,25,25
-#define PINK 25,0,25
+#define RED 50,0,0
+
+#define PURPLE 26,10,50
+
+#define ORANGE 50,26,0
+#define YELLOW 50,50,0
+#define L_GREEN 25,50,0
+#define GREEN 0,50,0
+#define TURQ 0,25,25
+#define BLUE 0,0,50
+
 
 #define BLINK_DELAY 500
+#define FAST_BLINK 250
 
 //prototypes
 

@@ -2,11 +2,8 @@
 
 uint8_t broadcastAddress[] = {};
 
-struct message_struct{
-  uint16_t grid_coord;
-};
 
-TaskHandle_t mainHandle;
+
 esp_now_peer_info_t peerInfo;
 Packet ourPacket;
 
@@ -15,7 +12,6 @@ void recievePacket(const uint8_t * mac, const uint8_t *incomingData, int len){
 }
 
 void wifi_init(){
-  //gives range 0-4095
   WiFi.mode(WIFI_STA);
 
   // Init ESP-NOW
@@ -39,7 +35,36 @@ void wifi_init(){
   esp_now_register_recv_cb(recievePacket);
 }
 
-uint16_t get_grid_coord(Packet* pkt){
-
-return pkt->gridCoord;
+uint8_t get_code(int level){
+  const int code = level;
+  switch(code){
+    case 0:
+      return ourPacket.leftSweeperIntensity;
+    case 1:
+      return ourPacket.rightSweeperIntensity;
+    case 2:
+      return ourPacket.sweeperOnLeft;
+    case 3:
+      return ourPacket.sweeperOnRight;
+  }
+  return 0;
 }
+
+bool get_but(){
+  return ourPacket.hurryHard;
+}
+// uint8_t get_grid_coord(const int level){
+//   switch(level){
+//     case 0:
+//       return ourPacket.leftSweeperIntensity;
+//     case 1:
+//       return ourPacket.rightSweeperIntensity;
+//     case 2:
+//       return ourPacket.sweeperOnLeft;
+//     case 3:
+//       return ourPacket.sweeperOnRight;
+//     default:
+//       return NULL;
+
+//   }
+// }
