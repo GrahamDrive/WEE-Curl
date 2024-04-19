@@ -10,7 +10,8 @@
  */
 
 // 
+#include <Arduino.h>
 
 // Adafruit LED Strip
-#define LED_PIN    36
-#define LED_COUNT 12 // This isn't a pin but is still useful to be defined
+#define LED_PIN   A4
+#define LED_COUNT 8 // This isn't a pin but is still useful to be defined
