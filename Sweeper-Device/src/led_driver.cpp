@@ -8,8 +8,8 @@ void led_init(){
     clock_prescale_set(clock_div_1);
 #endif
     pixels.begin();           // INITIALIZE NeoPixel strip object (REQUIRED)
+    pixels.setBrightness(100);
     pixels.show();            // Turn OFF all pixels ASAP
-    pixels.setBrightness(10); // Set BRIGHTNESS to about 1/5 (max = 255)
 }
 
 

@@ -17,7 +17,7 @@ uint32_t next = 0;
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(9600);
-  init();
+  led_init();
 	wifi_init();
 }
 
