@@ -1,10 +1,10 @@
 #include <Adafruit_NeoPixel.h>
+#include "pinouts.h"
+#include "stdint.h"
+
 #ifdef __AVR__
   #include <avr/power.h>
 #endif
-#define PIN        13
-#define NUMPIXELS   8
-
 
 //predefined colors
 #define RED 50,0,0
@@ -19,11 +19,14 @@
 #define BLUE 0,0,50
 
 
-#define BLINK_DELAY 500
-#define FAST_BLINK 250
+#define BLINK_DELAY 250
 
 //prototypes
 
 void led_init(void);
-void blink_color(uint8_t,uint8_t,uint8_t,int);
-void static_color(uint8_t,uint8_t,uint8_t);
+
+void blink_color(uint8_t r,uint8_t g,uint8_t b, uint8_t n);
+
+void static_color(uint8_t r, uint8_t g, uint8_t b);
+
+void turnOffLEDs();

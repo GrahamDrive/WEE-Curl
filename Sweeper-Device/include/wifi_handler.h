@@ -14,5 +14,12 @@ typedef struct packet_t{
 
 void wifi_init(void);
 
-uint8_t get_code(int);///get codes for the different parameters of the packet
-bool get_but(void);// check button state
+uint8_t getLeftSweeperIntensity(void);
+
+uint8_t getRightSweeperIntensity(void);
+
+uint8_t getSweeperOnLeft(void);
+
+uint8_t getSweeperOnRight(void);
+
+bool getHurryHard(void);// check button state

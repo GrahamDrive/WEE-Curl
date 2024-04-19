@@ -1,23 +1,25 @@
 #include "led_driver.h"
 
-Adafruit_NeoPixel pixels(NUMPIXELS, PIN, NEO_GRB + NEO_KHZ800);
+Adafruit_NeoPixel pixels(LED_COUNT, LED_PIN, NEO_GRB + NEO_KHZ800);
 
 void led_init(){
 
 #if defined(__AVR_ATtiny85__) && (F_CPU == 16000000)
     clock_prescale_set(clock_div_1);
 #endif
-    pixels.begin();
+    pixels.begin();           // INITIALIZE NeoPixel strip object (REQUIRED)
+    pixels.show();            // Turn OFF all pixels ASAP
+    pixels.setBrightness(10); // Set BRIGHTNESS to about 1/5 (max = 255)
 }
 
 
-void blink_color(uint8_t r,uint8_t g,uint8_t b, int n){
+void blink_color(uint8_t r,uint8_t g,uint8_t b, uint8_t n){
     /*
     INPUTS: uint8_t - represents the color code for the leds
             int - number of times you want to blink the led
     */
-    for(int i = 0; i < n; i ++){
-        for (int i = 0; i < NUMPIXELS; i++)
+    for(uint8_t i = 0; i < n; i ++){
+        for (uint8_t i = 0; i < LED_COUNT; i++)
         {
             pixels.setPixelColor(i, pixels.Color(r, g, b));
         }
@@ -35,9 +37,13 @@ void static_color(uint8_t r,uint8_t g,uint8_t b){
     INPUTS: uint8_t - represents the color code
     NOTE: you can read in 0 for all three codes to turn it off
     */
-    for (int i = 0; i < NUMPIXELS; i++)
+    for (uint8_t i = 0; i < LED_COUNT; i++)
         {
             pixels.setPixelColor(i, pixels.Color(r, g, b));
         }
     pixels.show();
+}
+
+void turnOffLEDs(){
+    pixels.clear();
 }

@@ -9,6 +9,18 @@ Packet ourPacket;
 
 void recievePacket(const uint8_t * mac, const uint8_t *incomingData, int len){
     memcpy(&ourPacket, incomingData, sizeof(Packet));
+    /*
+    Serial.print("Left Intensity: ");
+    Serial.print(ourPacket.leftSweeperIntensity);
+    Serial.print(" Right Intensity: ");
+    Serial.print(ourPacket.rightSweeperIntensity);
+    Serial.print(" Right Sweeper: ");
+    Serial.print(ourPacket.sweeperOnRight);
+    Serial.print(" Left Sweeper: ");
+    Serial.print(ourPacket.sweeperOnLeft);
+    Serial.print(" hurryHard: ");
+    Serial.println(ourPacket.hurryHard);
+    */
 }
 
 void wifi_init(){
@@ -35,36 +47,23 @@ void wifi_init(){
   esp_now_register_recv_cb(recievePacket);
 }
 
-uint8_t get_code(int level){
-  const int code = level;
-  switch(code){
-    case 0:
-      return ourPacket.leftSweeperIntensity;
-    case 1:
-      return ourPacket.rightSweeperIntensity;
-    case 2:
-      return ourPacket.sweeperOnLeft;
-    case 3:
-      return ourPacket.sweeperOnRight;
-  }
-  return 0;
+uint8_t getLeftSweeperIntensity(void){
+  return ourPacket.leftSweeperIntensity;
 }
 
-bool get_but(){
+uint8_t getRightSweeperIntensity(void){
+  return ourPacket.rightSweeperIntensity;
+}
+
+uint8_t getSweeperOnLeft(void){
+  return ourPacket.sweeperOnLeft;
+}
+
+uint8_t getSweeperOnRight(void){
+  return ourPacket.sweeperOnRight;
+}
+
+
+bool getHurryHard(){
   return ourPacket.hurryHard;
 }
-// uint8_t get_grid_coord(const int level){
-//   switch(level){
-//     case 0:
-//       return ourPacket.leftSweeperIntensity;
-//     case 1:
-//       return ourPacket.rightSweeperIntensity;
-//     case 2:
-//       return ourPacket.sweeperOnLeft;
-//     case 3:
-//       return ourPacket.sweeperOnRight;
-//     default:
-//       return NULL;
-
-//   }
-// }

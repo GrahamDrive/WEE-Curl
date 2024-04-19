@@ -13,29 +13,38 @@ turns off LEDs after some time
 */
 
 
-static int last_code = 0;
+static uint32_t last_code = 0;
 
-static unsigned int sleep_count = 0;
+static uint32_t sleep_count = 0;
 
 
 //read packet code and call led bar
-void read_code(uint8_t leftSweeperIntensity, uint8_t rightSweeperIntensity,
+void packetHandler(uint8_t leftSweeperIntensity, uint8_t rightSweeperIntensity,
     uint8_t sweeperOnLeft, uint8_t sweeperOnRight, bool hurryHard){
     
-    int temp = -1;
+    static uint8_t code;
+    uint8_t temp = -1;
     if(sweeperOnLeft == DEVICE_ID){
         temp = leftSweeperIntensity;
     }
     else if(sweeperOnRight == DEVICE_ID){
         temp = rightSweeperIntensity;
     }
+
     //check if hurry hard
     if(temp != -1 && hurryHard){
         temp = 100;
     }
-
-    const int code = temp;
     
+    code = temp;
+    Serial.print("Sweep Intensity: ");
+    Serial.print(code);
+    Serial.print(" Sweeper on Right: ");
+    Serial.print(sweeperOnRight);
+    Serial.print(" Sweeper on Left: ");
+    Serial.print(sweeperOnLeft);
+    Serial.print(" Pass Check?: ");
+    Serial.println(DEVICE_ID != sweeperOnRight && DEVICE_ID != sweeperOnLeft);
     //check for idle skip
     /*IDLE if:
     low intensity(0) for n packets
@@ -49,6 +58,7 @@ void read_code(uint8_t leftSweeperIntensity, uint8_t rightSweeperIntensity,
     }
     else if(DEVICE_ID != sweeperOnRight && DEVICE_ID != sweeperOnLeft){
         sleep_count = SLEEP_PACKETS;
+        turnOffLEDs();
         return;//dont do anything if not assigned a value
     }
     else{
@@ -60,39 +70,42 @@ void read_code(uint8_t leftSweeperIntensity, uint8_t rightSweeperIntensity,
     switch(code){
         case 0:
             //stop
-            blink_color(RED,3);
             static_color(RED);
+            break;
         case 1:
             //
-            static_color(BLUE);
+            static_color(ORANGE);
+            break;
         case 2:
-            blink_color(BLUE,3);
-            static_color(BLUE);
+            static_color(ORANGE);
+            break;
         case 3:
-            static_color(GREEN);
+            static_color(YELLOW);
+            break;
         case 4:
-            blink_color(GREEN,3);
-            static_color(GREEN);
+            static_color(YELLOW);
+            break;
         case 5:
-            static_color(YELLOW);
+            static_color(L_GREEN);
+            break;
         case 6:
-            blink_color(YELLOW,3);
-            static_color(YELLOW);
+            static_color(L_GREEN);
+            break;
         case 7:
-            static_color(ORANGE);
+            static_color(GREEN);
+            break;
         case 8:
-            blink_color(ORANGE,3);
-            static_color(ORANGE);
-        
+            static_color(GREEN);
+            break;
         case 100:
             //blink red
-            blink_color(PURPLE,5);
-
+            blink_color(PURPLE, 1);
+            break;
     }
  
 }
 
-int is_idle(){
+uint32_t is_idle(){
     return sleep_count;
 }
 
