@@ -1,7 +1,7 @@
 #include "led_driver.h"
 #include "stdint.h"
 
-#define DEVICE_ID 0
+#define DEVICE_ID 1
 #define SLEEP_PACKETS 180000 //num of dupe packets before turning off LEDs
 
 
