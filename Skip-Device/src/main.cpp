@@ -85,10 +85,6 @@ void loop() {
     packet.hurryHard = hurryHardButton.buttonState;
     packet.sweeperOnLeft = leftSwitch.switchState;
     packet.sweeperOnRight = rightSwitch.switchState;
-    Serial.print("Left Switch: ");
-    Serial.print(packet.sweeperOnLeft);
-    Serial.print(" Right Switch: ");
-    Serial.println(packet.sweeperOnRight);
     //sleep
     send_pkt(packet);
     

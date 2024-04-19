@@ -11,13 +11,14 @@
 #include <Arduino.h>
 #include <stdlib.h>
 #include "pinouts.h"
+#include "ADC_LUT.h"
 
 #define RAWindowSize    100
 
 typedef struct{
     uint8_t index = 0;            // Index of the moving average
-    uint16_t data[RAWindowSize];  // Data from rolling average
-    uint32_t avgSum = 0;          // Sum of values in data
+    float data[RAWindowSize];  // Data from rolling average
+    float avgSum = 0;          // Sum of values in data
     uint16_t pin = INT16_MAX;     // Pin of the slider
 }slider_t;
 
