@@ -9,7 +9,7 @@ void init_button(buttonStruct button) {
 void pollButton(buttonStruct* button) {
   button->cur_time = millis();//current time
   
-  if(button->cur_time >= (button->time_butt+DEBOUNCE)){
+  if(button->cur_time >= (button->time_butt+BUTTONDEBOUNCE)){ 
     if(digitalRead(button->pin) == LOW){
         button->time_butt = millis();
         button->buttonState = !(button->buttonState);

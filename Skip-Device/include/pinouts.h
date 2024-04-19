@@ -19,12 +19,12 @@
 #define indicatorLEDPin    A14
 
 // Switches
-#define rightSwitchPinOnePin   A15
-#define rightSwitchPinTwoPin   A16
-#define rightSwitchPinThreePin A17
-#define leftSwitchPinOnePin    A28
-#define leftSwitchPinTwoPin    A29
-#define leftSwitchPinThreePin  A27
+#define rightSwitchPinOne   A18
+#define rightSwitchPinTwo   A19
+#define rightSwitchPinThree A17
+#define leftSwitchPinOne    A5
+#define leftSwitchPinTwo    A6
+#define leftSwitchPinThree  A7
 
 // Buttons
 #define hurryHardButtonPin     A16

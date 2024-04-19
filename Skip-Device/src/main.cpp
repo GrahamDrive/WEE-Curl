@@ -15,6 +15,7 @@
 #include "buttonDriver.h"
 #include "wifi_handler.h"
 #include "pinouts.h"
+#include "switchDriver.h"
 
 // Slider Structs
 
@@ -22,9 +23,11 @@ slider_t leftSlider;
 slider_t rightSlider;
 Packet packet = {};
 buttonStruct hurryHardButton = {};
+switchStruct leftSwitch = {};
+switchStruct rightSwitch = {};
 
 // Variables
-u_long lastmilis;
+uint32_t lastmilis;
 
 void setup() {
   Serial.begin(9600);
@@ -36,7 +39,21 @@ void setup() {
 
   hurryHardButton.pin = hurryHardButtonPin;
   hurryHardButton.pullUpOrDown = INPUT_PULLUP;
+
+  leftSwitch.pinOne = leftSwitchPinOne;
+  leftSwitch.pinTwo = leftSwitchPinTwo;
+  leftSwitch.pinThree = leftSwitchPinThree; 
+  leftSwitch.pullUpOrDown = INPUT_PULLUP;
+
+  rightSwitch.pinOne = rightSwitchPinOne;
+  rightSwitch.pinTwo = rightSwitchPinTwo;
+  rightSwitch.pinThree = rightSwitchPinThree;
+  rightSwitch.pullUpOrDown = INPUT_PULLUP;
+
   init_button(hurryHardButton);
+
+  initSwitch(leftSwitch);
+  initSwitch(rightSwitch);
 
   wifi_init();
 
@@ -55,13 +72,23 @@ void loop() {
   // Make sure sliders are constantly polled
   pollSlider(&leftSlider);
   pollSlider(&rightSlider);
+
   pollButton(&hurryHardButton);
+
+  pollSwitch(&leftSwitch);
+  pollSwitch(&rightSwitch);
   
   // Every 100ms send packet
   if((millis() - lastmilis) > 100){
     packet.leftSweeperIntensity = getSweeperLevel(&leftSlider);
     packet.rightSweeperIntensity = getSweeperLevel(&rightSlider);
     packet.hurryHard = hurryHardButton.buttonState;
+    packet.sweeperOnLeft = leftSwitch.switchState;
+    packet.sweeperOnRight = rightSwitch.switchState;
+    Serial.print("Left Switch: ");
+    Serial.print(packet.sweeperOnLeft);
+    Serial.print(" Right Switch: ");
+    Serial.println(packet.sweeperOnRight);
     //sleep
     send_pkt(packet);
     

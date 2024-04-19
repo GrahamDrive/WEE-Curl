@@ -11,7 +11,7 @@ void send_pkt(Packet outBoundPacket){
 
     if (result == ESP_OK)
     {
-        Serial.println("Broadcasted");
+        //Serial.println("Broadcasted");
     }
     else
     {
@@ -30,7 +30,7 @@ void OnDataRecv(const uint8_t* mac, const uint8_t *incomingData, int len){
 
 
 void OnDataSent(const uint8_t* mac_addr, esp_now_send_status_t status){
-  Serial.print("Delivered Successfully\n");
+  //Serial.print("Delivered Successfully\n");
 }
 
 
