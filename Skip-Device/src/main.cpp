@@ -50,6 +50,8 @@ void setup() {
   rightSwitch.pinThree = rightSwitchPinThree;
   rightSwitch.pullUpOrDown = INPUT_PULLUP;
 
+  pinMode(indicatorLEDPin, OUTPUT);
+  
   init_button(hurryHardButton);
 
   initSwitch(leftSwitch);
@@ -85,6 +87,8 @@ void loop() {
     packet.hurryHard = hurryHardButton.buttonState;
     packet.sweeperOnLeft = leftSwitch.switchState;
     packet.sweeperOnRight = rightSwitch.switchState;
+
+    digitalWrite(indicatorLEDPin, hurryHardButton.buttonState);
     //sleep
     send_pkt(packet);
     

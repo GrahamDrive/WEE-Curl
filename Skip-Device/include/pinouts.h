@@ -16,7 +16,7 @@
 #define rightSliderPin  A0
 
 // LEDs
-#define indicatorLEDPin    A14
+#define indicatorLEDPin    A4
 
 // Switches
 #define rightSwitchPinOne   A18

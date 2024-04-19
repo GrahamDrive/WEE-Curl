@@ -1,8 +1,8 @@
 #include "wifi_handler.h"
 
 uint8_t sweeperOneMac[] = {0x0C, 0xB8, 0x15, 0x77, 0xD4, 0x54};
-uint8_t sweeperTwoMac[] = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF};     // Change to actual MACs
-uint8_t sweeperThreeMac[] = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF};   // Change to actual MACs
+uint8_t sweeperTwoMac[] = {0x40, 0x22, 0xD8, 0xEA, 0x74, 0x3C};     // Change to actual MACs
+uint8_t sweeperThreeMac[] = {0x40, 0x22, 0xD8, 0xEB, 0x20, 0xC8};   // Change to actual MACs
 
 void send_pkt(Packet outBoundPacket){
 
@@ -50,6 +50,28 @@ void wifi_init(){
     
     //add stuff to peer list
     memcpy(peerInfo.peer_addr, sweeperOneMac, 6);
+    peerInfo.channel = 0;
+    peerInfo.encrypt = false;
+
+    if(esp_now_add_peer(&peerInfo) != ESP_OK){
+        Serial.println("Failed to add peer");
+    }
+    else{
+        Serial.println("Added Peer");
+    }
+
+    memcpy(peerInfo.peer_addr, sweeperTwoMac, 6);
+    peerInfo.channel = 0;
+    peerInfo.encrypt = false;
+
+    if(esp_now_add_peer(&peerInfo) != ESP_OK){
+        Serial.println("Failed to add peer");
+    }
+    else{
+        Serial.println("Added Peer");
+    }
+
+    memcpy(peerInfo.peer_addr, sweeperThreeMac, 6);
     peerInfo.channel = 0;
     peerInfo.encrypt = false;
 
