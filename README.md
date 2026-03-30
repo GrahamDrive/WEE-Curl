@@ -1,2 +1,2 @@
 # WEE-Curl
-Welcoming Everybody to Electronics Inc
+Welcoming Everybody to Electronics
